@@ -1,0 +1,141 @@
+﻿<UserControl x:Class="Test.View.WizardViewMain"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" mc:Ignorable="d"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:view="clr-namespace:Test.View.Pages"
+			 xmlns:viewModel="clr-namespace:Test.ViewModel.Pages"
+			 xmlns:viewModel1="clr-namespace:Test.ViewModel"
+             d:DataContext="{d:DesignInstance viewModel1:WizardViewModelMain}">
+
+   
+    <UserControl.Resources>
+        <!-- These six templates map a ViewModel to a View. -->
+        <DataTemplate DataType="{x:Type viewModel:ViewModelWelcomePage}">
+            <view:WelcomePage/>
+        </DataTemplate>
+        
+        <DataTemplate DataType="{x:Type viewModel:ViewModelName}">
+            <view:ViewName/>
+        </DataTemplate>
+
+        <DataTemplate DataType="{x:Type viewModel:ViewModelSurname}">
+            <view:SurnameView />
+        </DataTemplate>
+
+        <DataTemplate DataType="{x:Type viewModel:ViewModelPhone}">
+            <view:PhoneView/>
+        </DataTemplate>
+        
+        <DataTemplate DataType="{x:Type viewModel:ViewModelAdress}">
+            <view:AdressPage/>
+        </DataTemplate>
+
+        <DataTemplate DataType="{x:Type viewModel:ViewModelSummaryPage}">
+            <view:SummaryPage/>
+        </DataTemplate>
+        
+        <Style TargetType="{x:Type Button}">
+            <Setter Property="Padding" Value="3.5,0" />
+            <Setter Property="Margin" Value="3.5" />
+            <Setter Property="MinWidth" Value="80" />
+        </Style>
+
+        <!-- This Style inherits from the Button style seen above. -->
+        <Style BasedOn="{StaticResource {x:Type Button}}" TargetType="{x:Type Button}" x:Key="MoveNextButtonStyle">
+            <Setter Property="Content" Value="Next &gt;" />
+            <Style.Triggers>
+                <DataTrigger Binding="{Binding Path=IsOnLastPage}" Value="True">
+                    <Setter Property="Content" Value="Finish" />
+                </DataTrigger>
+            </Style.Triggers>
+        </Style>
+
+        <Style TargetType="{x:Type HeaderedContentControl}">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type HeaderedContentControl}">
+                        <StackPanel Margin="2,0">
+                            <Grid Margin="1,1,1,12" RenderTransformOrigin="0.5,0.5">
+                                <Rectangle
+                                  Fill="BurlyWood"
+                                  Height="3"
+                                  Margin="10,0"
+                                  Opacity="0.6"
+                                  RadiusX="8"
+                                  RadiusY="8"
+                                  VerticalAlignment="Bottom" 
+                                  />
+                                <ContentPresenter
+                                  ContentSource="Header"
+                                  TextBlock.FontSize="22"
+                                  TextBlock.FontWeight="DemiBold"
+                                  TextBlock.Foreground="Black"
+                                  HorizontalAlignment="Center"
+                                  VerticalAlignment="Center" 
+                                  />
+                            </Grid>
+                            <Grid>
+                                <Rectangle Fill="{TemplateBinding Background}" />
+                                <ContentPresenter ContentSource="Content" />
+                            </Grid>
+                        </StackPanel>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+
+    </UserControl.Resources>
+
+    <Grid Background="#11008800" Margin="1">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*" />
+            <RowDefinition Height="30" />
+        </Grid.RowDefinitions>
+
+        <!-- CURRENT PAGE AREA -->
+        <Border Background="CadetBlue" Grid.Column="0" Grid.Row="0">
+            <HeaderedContentControl 
+        Content="{Binding Path=CurrentPage}"
+        Header="{Binding Path=CurrentPage.DisplayName}" 
+        
+        />
+        </Border>
+
+        <!-- NAVIGATION BUTTONS -->
+        <Grid Grid.Column="0" Grid.Row="1"
+          Grid.IsSharedSizeScope="True"
+          HorizontalAlignment="Right"          
+          >
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition SharedSizeGroup="Buttons" />
+                <ColumnDefinition SharedSizeGroup="Buttons" />
+                <ColumnDefinition Width="11" />
+                <ColumnDefinition SharedSizeGroup="Buttons" />
+            </Grid.ColumnDefinitions>
+            <Button
+            Grid.Column="0"
+            Grid.Row="0"
+            Command="{Binding Path=MovePreviousCommand}"
+            Content="&lt; Back" 
+            />
+            <Button
+            Grid.Column="1"
+            Grid.Row="0"
+            Command="{Binding Path=MoveNextCommand}"
+            Style="{StaticResource MoveNextButtonStyle}" 
+            />
+            <Button
+            Grid.Column="3"
+            Grid.Row="0"
+            Command="{Binding Path=CancelCommand}"
+            Content="Cancel"
+            />
+        </Grid>
+    </Grid>
+
+</UserControl>
