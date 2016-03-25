@@ -8,8 +8,9 @@ namespace Test.View.Pages
     public partial class ViewName : UserControl
     {
         public ViewName()
-        {
+        { 
             InitializeComponent();
+         
         }
     }
 }

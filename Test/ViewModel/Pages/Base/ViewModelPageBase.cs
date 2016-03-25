@@ -18,12 +18,10 @@ namespace Test.ViewModel.Pages.Base
 
 		}
 
-	
-
 		#region Properties		
-
+        public abstract string GetProperty { get; set; }
 		public abstract string DisplayName { get; }
-
+       
 		public bool IsCurrentPage
 		{
 			get { return _bIsCurrentPage; }

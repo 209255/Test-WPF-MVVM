@@ -7,19 +7,6 @@ namespace Test.ViewModel.Pages
     {
         public new event PropertyChangedEventHandler PropertyChanged;
         private string _adress;
-        public string Adress
-        {
-            get
-            {
-                return _adress;
-            }
-            set
-            {
-                _adress = value;
-                OnPropertyChanged("Adress");
-            }
-        }
-      
 
         //=============================================================================
 
@@ -29,12 +16,20 @@ namespace Test.ViewModel.Pages
         }
 
         //=============================================================================
-
+        public override string GetProperty
+        {
+            get { return _adress; }
+            set
+            {
+                _adress = value;
+                OnPropertyChanged("Adress");
+            }
+        }
         public override string DisplayName
         {
             get
             {
-                const string namePage = "Adress Page";
+                const string namePage = "Adress";
                 return namePage;
             }
         }

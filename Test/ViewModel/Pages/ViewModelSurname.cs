@@ -8,21 +8,8 @@ namespace Test.ViewModel.Pages
     {
         public new event PropertyChangedEventHandler PropertyChanged;
         private string _surnName;
-		public string SurnameName
-		{
-			get
-			{
-				return _surnName;
-			}
-			set
-			{
-			    _surnName = value;
-				OnPropertyChanged("FirstName");
-			}
-		}
-      
 
-		//=============================================================================
+  		//=============================================================================
 
 		internal override bool IsPageValid()
 		{
@@ -30,12 +17,20 @@ namespace Test.ViewModel.Pages
 		}
 
 		//=============================================================================
-
+        public override string GetProperty
+        {
+            get { return _surnName; }
+            set
+            {
+                _surnName = value;
+                OnPropertyChanged("Surname");
+            }
+        }
 		public override string DisplayName
 		{
 			get
 			{
-			    const string namePage = "Surname Page";
+			    const string namePage = "Surname";
                 return namePage;
 			}
 		}

@@ -16,19 +16,12 @@ namespace Test.Command
 
         #region Constructors
 
-        /// <summary>
-        /// Creates a new command that can always execute.
-        /// </summary>
-        /// <param name="execute">The execution logic.</param>
+       
         public RelayCommand(Action execute)
             : this(execute, null)
         { }
 
-        /// <summary>
-        /// Creates a new command.
-        /// </summary>
-        /// <param name="execute">The execution logic.</param>
-        /// <param name="canExecute">The execution status logic.</param>
+       
         public RelayCommand(Action execute, Func<bool> canExecute)
         {
             if (execute == null)

@@ -1,30 +1,14 @@
-﻿using System.Threading;
-using System.ComponentModel;
+﻿using System.ComponentModel;
 using Test.ViewModel.Pages.Base;
 
 namespace Test.ViewModel.Pages
 {
    class ViewModelName:ViewModelPageBase
     {
-       public ViewModelName()
-       { }
+        
         public new event PropertyChangedEventHandler PropertyChanged;
         private string _firstName;
-		public string FirstName
-		{
-			get
-			{
-				return _firstName;
-			}
-			set
-			{
-			    _firstName = value;
-			    
-				OnPropertyChanged("FirstName");
-			}
-		}
-        
-
+	
 		//=============================================================================
 
 		internal override bool IsPageValid()
@@ -33,12 +17,21 @@ namespace Test.ViewModel.Pages
 		}
 
 		//=============================================================================
+       public override string GetProperty
+        {
+           get { return _firstName; }
+           set
+           {
+               _firstName = value;
+               OnPropertyChanged("FirstName");
+           }
+        }
 
-		public override string DisplayName
+       public override string DisplayName
 		{
 			get
 			{
-			    const string namePage = "Name Page";
+			    const string namePage = "Name";
                 return namePage;
 			}
 		}

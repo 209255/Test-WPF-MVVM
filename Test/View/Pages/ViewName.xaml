@@ -5,17 +5,17 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       xmlns:pages="clr-namespace:Test.ViewModel.Pages"
       mc:Ignorable="d" 
-      d:DesignHeight="300" d:DesignWidth="300" d:DataContext="{d:DesignInstance pages:ViewModelName}">
+      d:DesignHeight="300" d:DesignWidth="300">
  
 
 
-    <StackPanel>
-            <TextBox Height="23"   Name="FirstName" Width="120">
-                <TextBox.Text>
-                    <Binding Path="FirstName" />
-                </TextBox.Text>
-            </TextBox>
-
+    <StackPanel d:DataContext="{d:DesignInstance pages:ViewModelName}">
+        <TextBox Height="23"   Name="FirstName" Width="120">
+            <TextBox.Text>
+                <Binding Path="GetProperty"/>
+            </TextBox.Text>
+        </TextBox>
+      
     </StackPanel>
- 
+
 </UserControl>

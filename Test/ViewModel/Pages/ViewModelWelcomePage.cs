@@ -3,22 +3,18 @@ namespace Test.ViewModel.Pages
 {
     class ViewModelWelcomePage:ViewModelPageBase
     {
-        //=============================================================================
-		public ViewModelWelcomePage()
-		{
-
-		}
-
-		//=============================================================================
+        
 
 		internal override bool IsPageValid()
 		{
 			return true;
 		}
 
-		//=============================================================================
+		
 
-		public override string DisplayName
+        public override string GetProperty { get; set; }
+
+        public override string DisplayName
 		{
 			get
 			{
@@ -28,6 +24,7 @@ namespace Test.ViewModel.Pages
 			}
 		}
 
-	}
+       
     }
+}
 

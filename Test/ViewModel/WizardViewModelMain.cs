@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.Windows.Input;
@@ -14,9 +13,9 @@ namespace Test.ViewModel
         #region Fields
 
 		//Wizard Pages
-        private ReadOnlyCollection<ViewModelPageBase> _crPages;
+        private List<ViewModelPageBase> _crPages;
         private ViewModelPageBase _crCurrentPage;
-
+       
 		//Navigation Buttons
 		RelayCommand _crCancelCommand;
 		RelayCommand _crMoveNextCommand;
@@ -27,14 +26,13 @@ namespace Test.ViewModel
 
 		#region Constructor
 
-		//=============================================================================
 
 		public WizardViewModelMain()
 		{
 			CurrentPage = Pages[0];
 		}
 
-		//=============================================================================
+		
 
 		#endregion // Constructor
 
@@ -42,21 +40,16 @@ namespace Test.ViewModel
 
 		#region CancelCommand
 
-		//=============================================================================
-		/// <summary>
-		/// Returns the command which, when executed, cancels the order 
-		/// and causes the Wizard to be removed from the user interface.
-		/// </summary>
 		public ICommand CancelCommand
 		{
 			get { return _crCancelCommand ?? (_crCancelCommand = new RelayCommand(CancelOperation)); }
 		}
 
-		//=============================================================================
+		
 
 	    private void CancelOperation()
 		{
-			//_cupOfCoffee = null;
+		
 			OnRequestClose();
 		}
 
@@ -64,12 +57,7 @@ namespace Test.ViewModel
 
 		#region MovePreviousCommand
 
-		//=============================================================================
-
-		/// <summary>
-		/// Returns the command which, when executed, causes the CurrentPage 
-		/// property to reference the previous page in the workflow.
-		/// </summary>
+		
 		public ICommand MovePreviousCommand
 		{
 			get
@@ -80,14 +68,13 @@ namespace Test.ViewModel
 			}
 		}
 
-		//=============================================================================
+		
 
 	    private bool CanMoveToPreviousPage
 		{
 			get { return 0 < CurrentPageIndex; }
 		}
 
-		//=============================================================================
 
 	    private void MoveToPreviousPage()
 		{
@@ -97,19 +84,13 @@ namespace Test.ViewModel
 			}
 		}
 
-		//=============================================================================
+
 
 		#endregion // MovePreviousCommand
 
 		#region MoveNextCommand
 
-		//=============================================================================
-		/// <summary>
-		/// Returns the command which, when executed, causes the CurrentPage 
-		/// property to reference the next page in the workflow.  If the user
-		/// is viewing the last page in the workflow, this causes the Wizard
-		/// to finish and be removed from the user interface.
-		/// </summary>
+		
 		public ICommand MoveNextCommand
 		{
 			get
@@ -183,7 +164,7 @@ namespace Test.ViewModel
 		}
 
 		
-		public ReadOnlyCollection<ViewModelPageBase> Pages
+		public List<ViewModelPageBase> Pages
 		{
 			get
 			{
@@ -196,26 +177,21 @@ namespace Test.ViewModel
 			}
 		}
 
-		//=============================================================================
+
 
 		#endregion // Properties
-
-
-
 		#region Events
 
-		//=============================================================================
-		/// <summary>
-		/// Raised when the wizard should be removed from the UI.
-		/// </summary>
+	
 		public event EventHandler RequestClose;
 
-		//=============================================================================
+	
 		#endregion // Events
 
 		#region Private Helpers
 
-		//=============================================================================
+      
+	
 	    private void CreatePages()
 		{
 		    var pages = new List<ViewModelPageBase>
@@ -225,12 +201,11 @@ namespace Test.ViewModel
                new ViewModelSurname(),
                new ViewModelPhone(),
                new ViewModelAdress(),
-               new ViewModelSummaryPage()
+             
 		    };
-             _crPages = new ReadOnlyCollection<ViewModelPageBase>(pages);
+	        _crPages = pages;
+	        _crPages.Add(new ViewModelSummaryPage(pages));
 		}
-
-		//=============================================================================
 
 	    private int CurrentPageIndex
 		{
@@ -242,10 +217,6 @@ namespace Test.ViewModel
 			}
 		}
 
-       
-
-        //=============================================================================
-
 	    private void OnRequestClose()
 		{
 			EventHandler handler = RequestClose;
@@ -255,17 +226,17 @@ namespace Test.ViewModel
 			}
 		}
 
-		//=============================================================================
+		
 
 		#endregion // Private Helpers
 
 		#region INotifyPropertyChanged Members
 
-		//=============================================================================
+		
 
 		public event PropertyChangedEventHandler PropertyChanged;
 
-		//=============================================================================
+		
 
 	    private void OnPropertyChanged(string propertyName)
 		{
@@ -276,7 +247,7 @@ namespace Test.ViewModel
 			}
 		}
 
-		//=============================================================================
+		
 
 
 		#endregion // INotifyPropertyChanged Members

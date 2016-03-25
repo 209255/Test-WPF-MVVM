@@ -6,20 +6,7 @@ namespace Test.ViewModel.Pages
     public class ViewModelPhone:ViewModelPageBase
     {
         public new event PropertyChangedEventHandler PropertyChanged;
-        private string _phone;
-		public string Phone
-		{
-			get
-			{
-				return _phone;
-			}
-			set
-			{
-			    _phone = value;
-				OnPropertyChanged("Phone");
-			}
-		}
-       
+        private string _phone;       
 
 		//=============================================================================
 
@@ -29,12 +16,20 @@ namespace Test.ViewModel.Pages
 		}
 
 		//=============================================================================
-
+        public override string GetProperty
+        {
+            get { return _phone; }
+            set
+            {
+                _phone = value;
+                OnPropertyChanged("Phone");
+            }
+        }
 		public override string DisplayName
 		{
 			get
 			{
-			    const string namePage = "Phone Page";
+			    const string namePage = "Phone";
                 return namePage;
 			}
 		}
